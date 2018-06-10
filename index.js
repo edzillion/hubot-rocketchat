@@ -38,10 +38,12 @@ class RocketChatBotAdapter extends Adapter {
     this.driver = driver
     this.methodCache = methodCache
     this.api = api
+
+    this.robot.logger.info(`[startup] Updating settings ...`)
     settings.host = process.env.ROCKETCHAT_URL || 'localhost:3000'
     settings.username = process.env.ROCKETCHAT_USER || 'bot'
     settings.password = process.env.ROCKETCHAT_PASS || 'bot'
-    settings.useSsl = (process.env.ROCKETCHAT_USESSL === '') ? true : process.env.ROCKETCHAT_USESSL  // server uses https ?
+    settings.useSsl = (!process.env.ROCKETCHAT_USESSL || process.env.ROCKETCHAT_USESSL === '') ? true : process.env.ROCKETCHAT_USESSL  // server uses https ?
     settings.allPublic = true
     //settings.rooms = (process.env.ROCKETCHAT_ROOM === '') ? ['GENERAL'] : [process.env.ROCKETCHAT_ROOM];
     this.settings = settings
